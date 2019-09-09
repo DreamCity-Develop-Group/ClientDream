@@ -12,12 +12,11 @@ public class WebData
     /// The WebSocket address to connect  
     /// </summary>  
     //private readonly string address = "ws://192.168.0.102:8010/dream/city/";
-    private readonly string address = "ws://192.168.0.102:8011/dream/city/lili/你发";
+    private readonly string address = "ws://192.168.0.101:8011/dream/city/lili/你发";
 
     /// <summary>  
     /// Default text to send  
     /// </summary>  
-    private string _msgToSend = "Hello World!";
 
     /// <summary>
     /// 心跳时间
@@ -44,17 +43,6 @@ public class WebData
     public WebSocket WebSocket { get { return _webSocket; } }
     public string Address { get { return address; } }
     public string Text { get { return _text; } }
-
-    //public string MsgToSend
-    //{
-    //    get { return _msgToSend; }
-    //    set
-    //    {
-    //        _msgToSend = value;
-    //        SendMsg(value);
-    //    }
-    //}
-    public WebSocket testSocket;
    
     public  void OpenWebSocket()
     {
@@ -71,20 +59,14 @@ public class WebData
                 OnOpen();
              };
             _webSocket.OnMessage += (sender, e) => {
-               
                 OnMessageReceived(e.Data);
-               
             };
-            //_webSocket.Accept
             _webSocket.OnClose += (sender, e) => {
                 OnClosed(e.Reason);
             };
             _webSocket.OnError += (sender, e) => {
                 OnError(e.Exception,e.Message);
             };
-            //await _webSocket.ConnectAsync(new Uri(address), CancellationToken.None);
-            //OnReceived();
-            
         }
     }
     //readonly CancellationToken _cancellation = new CancellationToken();
@@ -100,23 +82,14 @@ public class WebData
             string jsonmsg = JsonMapper.ToJson(msg);
             Debug.Log(jsonmsg);
         _webSocket.Send(jsonmsg);
-        //TODO
-
-        //var bsend = new byte[1024];
-        ////bsend = jsonmsg.System.Text.Encoding.Default.GetBytes(str);
-        //await _webSocket.SendAsync(new ArraySegment<byte>(bsend), WebSocketMessageType.Text, true, CancellationToken.None); //发送数据
-
     }
-    //WebSocketCloseStatus closeStatus;
     string statusDescription;
     public void CloseSocket()
     {
         // Close the connection  
-       
         threads.Enqueue(t1);
         t1.Abort();
         _webSocket.Close(1000, "Bye!");
-        //_webSocket.CloseAsync( closeStatus, statusDescription, CancellationToken.None);
         _webSocket = null;
     }
     /// <summary>
@@ -160,30 +133,6 @@ public class WebData
         }
         Debug.Log("-WebSocket Open!\n");
     }
-    //async void OnReceived()
-    //{
-    //    while (true)
-    //    {
-    //        try
-    //        {
-    //            var array = new byte[1024];
-
-    //            var result =await _webSocket.ReceiveAsync(new ArraySegment<byte>(array), new CancellationToken());//接受数据
-    //            if (result.MessageType == WebSocketMessageType.Text)
-    //            {
-    //                string msg = Encoding.UTF8.GetString(array, 0, result.Count);
-    //                Console.WriteLine(msg);
-    //            }
-    //        }
-    //        catch (Exception e)
-    //        {
-
-    //            Console.WriteLine(e.Message);
-    //        }
-    //    }
-
-    //}
-
     /// <summary>  
     /// Called when we received a text message from the server  
     /// </summary>  
@@ -200,21 +149,11 @@ public class WebData
             Debug.Log("isconnect"+jsonmsg);
             return;
         }
-        //TODO
-
-        //var result = new byte[1024];
-
-        //await _webSocket.ReceiveAsync(new ArraySegment<byte>(result), new CancellationToken());//接受数据
-
-        //var lastbyte = ByteCut(result, 0x00);
-
-        //var str = Encoding.UTF8.GetString(lastbyte, 0, lastbyte.Length);
 
         //if(datainfo.info[0].OpCode.Equals("init"))
         //PlayerPrefs.SetString("clientId", datainfo.info[0].ClientId);
        
         Debug.LogError(jsonmsg);
-        //SocketMsg info = JsonUtility.FromJson<Serialization<SocketMsg>>(jsonmsg).ToList();
         SocketMsg info = JsonMapper.ToObject<SocketMsg>(jsonmsg);
         // SocketMsg info = JsonUtility.FromJson<SocketMsg>(jsonmsg);
         
@@ -222,16 +161,9 @@ public class WebData
         if (info != null)
         {
             //TODO 过滤过时消息
-            //if()
             _msgQueue.Enqueue(info);
         }
     }
-
-    private byte[] ByteCut(byte[] result, int v)
-    {
-        throw new NotImplementedException();
-    }
-
     /// <summary>  
     /// Called when the web socket closed  
     /// </summary>  
@@ -284,12 +216,8 @@ public class WebData
     /// </summary>  
     void OnError(Exception ex, string  error)
     {
-        //string errorMsg = string.Empty;
-        //if (ws.InternalRequest.Response != null)
-        //    errorMsg = string.Format("Status Code from Server: {0} and Message: {1}", ws.InternalRequest.Response.StatusCode, ws.InternalRequest.Response.Message);
-
         Debug.Log(string.Format("-An error occured: {0}\n", ex != null ? ex.Message : "Unknown Error " + error));
-        _webSocket = null;
+       //_webSocket = null;
     }
 }
 

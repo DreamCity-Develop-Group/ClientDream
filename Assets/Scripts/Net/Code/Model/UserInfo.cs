@@ -32,6 +32,6 @@ public string Password;// { get => password; set => password = value; }
 
     public override string ToString()
     {
-        return "phone="+Phone + "password"+Password + "inviteCode" +InviteCode+"nickName"+NickName;
+        return "phone="+Phone + ",password"+Password + ",inviteCode" +InviteCode+",nickName"+NickName;
     }
 }

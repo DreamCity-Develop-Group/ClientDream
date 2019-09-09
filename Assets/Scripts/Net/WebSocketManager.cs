@@ -3,7 +3,6 @@ using UnityEngine;
 using System.Text;
 using System.Collections;
 using System.Collections.Generic;
-//using WebSocketSharp;
 public class WebSocketManager : ManagerBase
 {
     public static WebSocketManager Instance = null;
@@ -36,13 +35,19 @@ public class WebSocketManager : ManagerBase
                     }
                 }
                 break;
-            case EventCmd.login:
-                //登入操作
+            case EventCmd.pwlogin:
+                //密码登入操作
                 if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
                 {
-                    //TODO
-                   
-                    socketMsg= accountRequestMsg.ReLoginMsg(message);
+                    socketMsg= accountRequestMsg.PWLoginMsg(message);
+                    _wabData.SendMsg(socketMsg);
+                }
+                break;
+            case EventCmd.idlogin:
+                //验证码登入
+                if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
+                {
+                    socketMsg = accountRequestMsg.IDLoginMsg(message);
                     _wabData.SendMsg(socketMsg);
                 }
                 break;
@@ -51,6 +56,14 @@ public class WebSocketManager : ManagerBase
                 if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
                 {
                     socketMsg = accountRequestMsg.ReRegMsg(message);
+                    _wabData.SendMsg(socketMsg);
+                }
+                break;
+            case EventCmd.pwforget:
+                //忘记密码
+                if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
+                {
+                    socketMsg = accountRequestMsg.PWChangeMsg(message);
                     _wabData.SendMsg(socketMsg);
                 }
                 break;
@@ -64,6 +77,7 @@ public class WebSocketManager : ManagerBase
                 //   // _wabData.WebSocket.Send(msg.ToString());
                 //}
                 break;
+                
             case EventCmd.exit:
                 //if (_wabData.WebSocket != null && _wabData.WebSocket.IsOpen)
                 //{

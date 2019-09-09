@@ -13,20 +13,20 @@ public class LoginInfo
 
     }
 
-    public LoginInfo(string phone, string password)
+    public LoginInfo(string userName, string password)
     {
-        this.Phone = phone;
+        this.UserName = userName;
         this.Password = password;
-      //  this.Identity = identity;
+        //this.IsIdentity = Isidentity;
     }
     public string IsIdentityLog;
-    public string Phone;//{ get => phone; set => phone = value; }
+    public string UserName;//{ get => phone; set => phone = value; }
     public string Password;// { get => password; set => password = value; }
     public string Identity;// { get => identity; set => identity = value; }
 
     public override string ToString()
     {
 
-        return "phone="+Phone + "password="+Password + "identity=" +Identity;
+        return "phone="+ UserName + ",password="+Password ;
     }
 }

@@ -7,6 +7,7 @@ public class LgoinPanel : UIBase
     Button btnLogin;
     Button btnReg;
     Button btnIdentityLog;
+    Button btnForget;
     InputField inputUserName;
     InputField inputPassWord;
     InputField inputIdentity;
@@ -18,6 +19,7 @@ public class LgoinPanel : UIBase
     string identity = "000";
 
     bool isLogIdentity = false;
+    LoginInfo loginInfo;
     private void Awake()
     {
         Bind(UIEvent.LOG_ACTIVE);
@@ -40,6 +42,7 @@ public class LgoinPanel : UIBase
         inputPassWord = transform.Find("InputPassWord").GetComponent<InputField>();
         inputIdentity = transform.Find("InputIdentity").GetComponent<InputField>();
 
+        btnForget = transform.Find("BtnForget").GetComponent<Button>();
         btnLogin = transform.Find("BtnLogin").GetComponent<Button>();
         btnReg = transform.Find("BtnReg").GetComponent<Button>();
         btnIdentityLog = transform.Find("BtnIdentityLog").GetComponent<Button>();
@@ -48,11 +51,13 @@ public class LgoinPanel : UIBase
         btnGetIdentity.onClick.AddListener(clickGetIdentity);
         btnLogin.onClick.AddListener(clickLogin);
         btnReg.onClick.AddListener(clickReg);
+        btnForget.onClick.AddListener(clickForget);
 
         textIdentityLog = btnIdentityLog.GetComponent<Text>();
 
         btnGetIdentity.gameObject.SetActive(false);
         inputIdentity.gameObject.SetActive(false);
+        loginInfo = new LoginInfo();
         Dispatch(AreaCode.NET, EventCmd.init, null);
     }
     public override void OnDestroy()
@@ -64,6 +69,11 @@ public class LgoinPanel : UIBase
     }
 
 
+    private void clickForget()
+    {
+        Dispatch(AreaCode.NET, UIEvent.Forget_ACTIVE, null);
+        Debug.Log("clickGetIdentity");
+    }
     private void clickGetIdentity()
     {
         Dispatch(AreaCode.NET,EventCmd.identy,null);
@@ -96,18 +106,20 @@ public class LgoinPanel : UIBase
     }
     private void clickLogin()
     {
-        username = inputUserName.text;
-        password = inputPassWord.text;
-        //identity = inputIdentity.text;
-
-        LoginInfo loginInfo = new LoginInfo(username, password);
-
-        Dispatch(AreaCode.NET, EventCmd.login,loginInfo);
       
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
+        username = inputUserName.text;
+        loginInfo.UserName = username;
+        if (isLogIdentity)
+        {
+            identity = inputIdentity.text;
+            loginInfo.Password = identity;
+            Dispatch(AreaCode.NET, EventCmd.pwlogin, loginInfo);
+        }
+        else
+        {
+            password = inputPassWord.text;
+            loginInfo.Password = password;
+            Dispatch(AreaCode.NET, EventCmd.idlogin, loginInfo);
+        }
     }
 }
