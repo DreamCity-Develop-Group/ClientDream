@@ -23,7 +23,7 @@ public class AccountRequestMsg
             };
             messageData.model = "user";
             messageData.type = "pwlog";
-            SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"), "", "登入操作", messageData);
+            SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"), "登入操作", messageData);
             return socketMsg;
     }
     /// <summary>
@@ -45,7 +45,7 @@ public class AccountRequestMsg
         };
         messageData.model = "set";
         messageData.type = "expw";
-        SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"), "", "修改登入密码操作", messageData);
+        SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"),  "修改登入密码操作", messageData);
         return socketMsg;
     }
     /// <summary>
@@ -64,7 +64,26 @@ public class AccountRequestMsg
         };
         messageData.model = "friend";
         messageData.type = "addfriend";
-        SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"), "", "添加好友操作", messageData);
+        SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"), "添加好友操作", messageData);
+        return socketMsg;
+    }
+    /// <summary>
+    /// 搜索用户消息
+    /// </summary>
+    /// <param name="msg"></param>
+    /// <returns></returns>
+    public SocketMsg SearchUserMsg(object msg)
+    {
+        LoginInfo loginInfo = msg as LoginInfo;
+        MessageData messageData = new MessageData();
+        string userpass = MsgTool.MD5Encrypt(loginInfo.Password);
+        messageData.t = new Dictionary<string, string>
+        {
+            ["nick"] = loginInfo.UserName,
+        };
+        messageData.model = "friend";
+        messageData.type = "seachfriend";
+        SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"), "搜索用户", messageData);
         return socketMsg;
     }
     /// <summary>
@@ -85,7 +104,7 @@ public class AccountRequestMsg
         };
         messageData.model = "user";
         messageData.type = "idlog";
-        SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"), "", "登入操作", messageData);
+        SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"), "登入操作", messageData);
         return socketMsg;
     }
     /// <summary>
@@ -106,9 +125,9 @@ public class AccountRequestMsg
             ["nick"] = userinfo.NickName,
             ["invite"] = userinfo.InviteCode
         };
-        messageData.model = "account";
+        messageData.model = "user";
         messageData.type = "reg";
-        SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"), "", "注册操作", messageData);
+        SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"),  "注册操作", messageData);
         return socketMsg;
     }
     /// <summary>
@@ -128,9 +147,9 @@ public class AccountRequestMsg
             ["NickName"] = userinfo.NickName,
             ["invite"] = userinfo.InviteCode
         };
-        messageData.model = "account";
-        messageData.type = "reg";
-        SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"), "", "注册操作", messageData);
+        messageData.model = "set";
+        messageData.type = "expwshop";
+        SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"),  "注册操作", messageData);
         return socketMsg;
     }
 
@@ -149,9 +168,29 @@ public class AccountRequestMsg
             ["game"]=setInfo.GameVoice
 
         };
-        messageData.model = "account";
-        messageData.type = "reg";
-        SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"), "", "音效设置", messageData);
+        messageData.model = "set";
+        messageData.type = "voice";
+        SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"),  "音效设置", messageData);
+        return socketMsg;
+    }
+    /// <summary>
+    /// 好友点赞
+    /// </summary>
+    /// <returns></returns>
+    public SocketMsg ReLikeFriendMsg(object msg)
+    {
+        UserInfo userInfo = msg as UserInfo;
+
+        MessageData messageData = new MessageData();
+        messageData.t = new Dictionary<string, string>
+        {
+            ["nick"] = userInfo.NickName,
+            ["likes"] = userInfo.Like
+
+        };
+        messageData.model = "friend";
+        messageData.type = "likefriend";
+        SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"), "好友点赞", messageData);
         return socketMsg;
     }
 }

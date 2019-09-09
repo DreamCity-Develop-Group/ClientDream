@@ -8,5 +8,8 @@ public class UIEvent
     public const int REG_ACTIVE =1;
     public const int Forget_ACTIVE = 2;
 
+    public const int GAMEVOICE = 3;
+    public const int GAMEBG = 4;
+
     public const int HINT_ACTIVE = int.MaxValue;
 }

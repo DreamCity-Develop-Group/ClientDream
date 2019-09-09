@@ -26,25 +26,18 @@ public class SocketMsg
     public string target;//{ get => target; set => target = value; }
     public string createtime;// { get => createtime; set => createtime = value; }
     public string source;//{ get => source; set => source = value; }
-
-    public static string ClientId = "" ;
     public SocketMsg()
     {
-
+        
     }
 
-    public  SocketMsg(string source, string target,string desc, MessageData data)
+    public  SocketMsg(string Source,string desc, MessageData data, string target="server")
     {
-        this.source = source;
+        source = Source;
         this.target = target;
-        this.createtime = GetTimeStamp();
+        createtime = GetTimeStamp();
         this.desc = desc;
         this.data = data;
-        if (source != null || source != "")
-        {
-            ClientId = source;
-            this.source = ClientId;
-        }
     }
     /// <summary>
     /// 防止重复创建socket

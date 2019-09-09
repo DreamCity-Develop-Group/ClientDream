@@ -10,7 +10,7 @@ public class AccoutHandler: HandlerBase
     {
         switch (subCode)
         {
-            case AccountCode.INIT:
+            case EventType.init:
                return  initResponse(value.ToString());
             case AccountCode.LOGIN:
                 return loginResponse(value.ToString());
@@ -71,12 +71,11 @@ public class AccoutHandler: HandlerBase
         {
             promptMsg.Change(result.ToString(), Color.green);
             Dispatch(AreaCode.UI, UIEvent.LOG_ACTIVE, null);
-            
             return true;
         }
         return false;
         //注册错误
-       //   promptMsg.Change(result.ToString(), Color.red);
+       // promptMsg.Change(result.ToString(), Color.red);
         //Dispatch(AreaCode.UI, UIEvent.PROMPT_MSG, promptMsg);
     }
 }

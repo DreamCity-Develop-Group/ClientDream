@@ -138,7 +138,7 @@ public class WebData
     /// </summary>  
     void OnMessageReceived(string jsonmsg)
      {
-
+        Debug.Log(jsonmsg);
         if (jsonmsg.Contains("success"))
         {
             if (jsonmsg.Length>7)
@@ -150,13 +150,12 @@ public class WebData
             return;
         }
 
-        //if(datainfo.info[0].OpCode.Equals("init"))
-        //PlayerPrefs.SetString("clientId", datainfo.info[0].ClientId);
-       
-        Debug.LogError(jsonmsg);
+
+        
         SocketMsg info = JsonMapper.ToObject<SocketMsg>(jsonmsg);
         // SocketMsg info = JsonUtility.FromJson<SocketMsg>(jsonmsg);
-        
+        //if (info.data.type.Equals("init"))
+        //    PlayerPrefs.SetString("ClientId", info.source);
         Debug.Log("test"+info.target+","+info.desc+","+info.data.model);
         if (info != null)
         {
