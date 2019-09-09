@@ -12,7 +12,7 @@ public class WebSocketManager : ManagerBase
         Instance = this;
         Add(0, this);
     }
-
+    #region 处理发送服务器的请求
     AccountRequestMsg accountRequestMsg = new AccountRequestMsg();
     SocketMsg socketMsg;
 
@@ -20,7 +20,7 @@ public class WebSocketManager : ManagerBase
     {
         switch (eventCode)
         {
-            case EventCmd.init:
+            case EventType.init:
                 //初始化操作
                 if (_wabData.WebSocket == null)
                 {
@@ -35,15 +35,15 @@ public class WebSocketManager : ManagerBase
                     }
                 }
                 break;
-            case EventCmd.pwlogin:
+            case EventType.pwlogin:
                 //密码登入操作
                 if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
                 {
-                    socketMsg= accountRequestMsg.PWLoginMsg(message);
+                    socketMsg = accountRequestMsg.PWLoginMsg(message);
                     _wabData.SendMsg(socketMsg);
                 }
                 break;
-            case EventCmd.idlogin:
+            case EventType.idlogin:
                 //验证码登入
                 if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
                 {
@@ -51,7 +51,7 @@ public class WebSocketManager : ManagerBase
                     _wabData.SendMsg(socketMsg);
                 }
                 break;
-            case EventCmd.regist:
+            case EventType.regist:
                 //注册操作
                 if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
                 {
@@ -59,7 +59,7 @@ public class WebSocketManager : ManagerBase
                     _wabData.SendMsg(socketMsg);
                 }
                 break;
-            case EventCmd.pwforget:
+            case EventType.pwforget:
                 //忘记密码
                 if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
                 {
@@ -67,7 +67,15 @@ public class WebSocketManager : ManagerBase
                     _wabData.SendMsg(socketMsg);
                 }
                 break;
-            case EventCmd.identy:
+            case EventType.addfriend:
+                //添加好友
+                if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
+                {
+                    socketMsg = accountRequestMsg.AddFriendMsg(message);
+                    _wabData.SendMsg(socketMsg);
+                }
+                break;
+            case EventType.identy:
                 //获取验证码
                 //TODO
                 //if (_wabData.WebSocket != null && _wabData.WebSocket.IsOpen)
@@ -77,19 +85,44 @@ public class WebSocketManager : ManagerBase
                 //   // _wabData.WebSocket.Send(msg.ToString());
                 //}
                 break;
-                
-            case EventCmd.exit:
+            case EventType.expw:
+                //修改密码TODO 暂时设置和忘记密码模块一样
+                if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
+                {
+                    socketMsg = accountRequestMsg.PWChangeMsg(message);
+                    _wabData.SendMsg(socketMsg);
+                }
+                break;
+            case EventType.expwshop:
+                //设置交易密码
+                if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
+                {
+                    socketMsg = accountRequestMsg.PWChangeMsg(message);
+                    _wabData.SendMsg(socketMsg);
+                }
+                break;
+            case EventType.voiceset:
+                //音效设置
+                if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
+                {
+                    socketMsg = accountRequestMsg.ReVoiceSetMsg(message);
+                    _wabData.SendMsg(socketMsg);
+                }
+                break;
+            case EventType.exit:
                 //if (_wabData.WebSocket != null && _wabData.WebSocket.IsOpen)
                 //{
                 //   //msg.Change(PlayerPrefs.GetString("clientId"), "", "", "", "", message[0].ToString());
                 //   // _wabData.WebSocket.Send(msg.ToString());
                 //}
                 //_wabData.WebSocket.Close(1000, "Bye!");
+
                 break;
             default:
                 break;
         }
     }
+    #endregion
     #region Private Fields
 
     /// <summary>  

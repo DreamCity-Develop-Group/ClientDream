@@ -58,7 +58,7 @@ public class LgoinPanel : UIBase
         btnGetIdentity.gameObject.SetActive(false);
         inputIdentity.gameObject.SetActive(false);
         loginInfo = new LoginInfo();
-        Dispatch(AreaCode.NET, EventCmd.init, null);
+        Dispatch(AreaCode.NET, EventType.init, null);
     }
     public override void OnDestroy()
     {
@@ -71,12 +71,12 @@ public class LgoinPanel : UIBase
 
     private void clickForget()
     {
-        Dispatch(AreaCode.NET, UIEvent.Forget_ACTIVE, null);
+        Dispatch(AreaCode.UI, UIEvent.Forget_ACTIVE, null);
         Debug.Log("clickGetIdentity");
     }
     private void clickGetIdentity()
     {
-        Dispatch(AreaCode.NET,EventCmd.identy,null);
+        Dispatch(AreaCode.NET, EventType.identy, null);
         Debug.Log("clickGetIdentity");
     }
     private void clickIdentityLog()
@@ -113,13 +113,14 @@ public class LgoinPanel : UIBase
         {
             identity = inputIdentity.text;
             loginInfo.Password = identity;
-            Dispatch(AreaCode.NET, EventCmd.pwlogin, loginInfo);
+            //Dispatch(AreaCode.NET, EventModel.USER_Model, EventType.pwlogin);
+            Dispatch(AreaCode.NET, EventType.pwlogin, loginInfo);
         }
         else
         {
             password = inputPassWord.text;
             loginInfo.Password = password;
-            Dispatch(AreaCode.NET, EventCmd.idlogin, loginInfo);
+            Dispatch(AreaCode.NET, EventType.idlogin, loginInfo);
         }
     }
 }

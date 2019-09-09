@@ -70,7 +70,7 @@ public class ForgetPanel : UIBase
     }
     private void clickGetIdentity()
     {
-        Dispatch(AreaCode.NET, EventCmd.identy, null);
+        Dispatch(AreaCode.NET, EventType.identy, null);
         Debug.Log("clickGetIdentity");
     }
     private void clickReg()
@@ -89,7 +89,7 @@ public class ForgetPanel : UIBase
         loginInfo.Password = password;
         loginInfo.Identity = identity;
 
-        Dispatch(AreaCode.NET, EventCmd.pwforget, loginInfo);
+        Dispatch(AreaCode.NET, EventType.pwforget, loginInfo);
     }
     // Update is called once per frame
     void Update()

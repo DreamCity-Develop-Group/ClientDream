@@ -12,7 +12,7 @@ public class WebData
     /// The WebSocket address to connect  
     /// </summary>  
     //private readonly string address = "ws://192.168.0.102:8010/dream/city/";
-    private readonly string address = "ws://192.168.0.101:8011/dream/city/lili/你发";
+    private readonly string address = "ws://192.168.0.101:8010/dream/city/lili/你发";
 
     /// <summary>  
     /// Default text to send  

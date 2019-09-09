@@ -70,7 +70,7 @@ public class RegistPanel : UIBase
         nickName = inputNickName.text;
         identify = inputIdentify.text;
         UserInfo userinfo = new UserInfo(phone,passWord,identify,inviteCode,nickName);
-        Dispatch(AreaCode.NET,EventCmd.regist, userinfo);
+        Dispatch(AreaCode.NET,EventType.regist, userinfo);
     }
     public override void OnDestroy()
     {
@@ -78,10 +78,5 @@ public class RegistPanel : UIBase
         btnIdentify.onClick.RemoveAllListeners();
         btnRegist.onClick.RemoveAllListeners();
         btnReturn.onClick.RemoveAllListeners();
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

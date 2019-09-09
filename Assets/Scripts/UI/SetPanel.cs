@@ -32,7 +32,7 @@ public class SetPanel: UIBase
     {
         PlayerPrefs.SetString("gamevoice","true");
 
-        //Dispatch(AreaCode.NET,EventCmd.set,)
+        //Dispatch(AreaCode.NET,EventType.set,)
     }
     private void clickSet()
     {
@@ -41,7 +41,7 @@ public class SetPanel: UIBase
 
     private void clickExit()
     {
-        Dispatch(AreaCode.NET,EventCmd.exit,null);
+        Dispatch(AreaCode.NET,EventType.exit,null);
         Application.Quit();
     }
     private void clickClose()
