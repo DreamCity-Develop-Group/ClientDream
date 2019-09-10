@@ -17,17 +17,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class RequestBase : MonoBehaviour
+public abstract class RequestBase 
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// ·¢ÏûÏ¢
+    /// </summary>
+    /// <param name="areaCode">Area code.</param>
+    /// <param name="eventCode">Event code.</param>
+    /// <param name="message">Message.</param>
+    public void Dispatch(int areaCode, int eventCode, object message)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        MsgCenter.Instance.Dispatch(areaCode, eventCode, message);
     }
 }

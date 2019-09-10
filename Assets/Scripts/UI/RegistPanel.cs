@@ -52,9 +52,13 @@ public class RegistPanel : UIBase
         btnIdentify.onClick.AddListener(clickIdentify);
         btnRegist.onClick.AddListener(clickRegist);
         btnReturn.onClick.AddListener(clickReturn);
+        btnRegist.enabled = false;
     }
     private void clickIdentify()
     {
+        btnRegist.enabled = true;
+        phone = inputIdentify.text;
+        //Dispatch(AreaCode.NET, EventType.identy, phone);
         Debug.Log("clickIdentify");
     }
     private void clickReturn()

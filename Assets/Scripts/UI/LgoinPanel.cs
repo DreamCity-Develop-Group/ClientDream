@@ -25,7 +25,7 @@ public class LgoinPanel : UIBase
         Bind(UIEvent.LOG_ACTIVE);
     }
 
-    public override void Execute(int eventCode,  object message)
+    public override void Execute(int eventCode, object message)
     {
         switch (eventCode)
         {
@@ -47,18 +47,21 @@ public class LgoinPanel : UIBase
         btnReg = transform.Find("BtnReg").GetComponent<Button>();
         btnIdentityLog = transform.Find("BtnIdentityLog").GetComponent<Button>();
         btnGetIdentity = transform.Find("BtnGetIdentity").GetComponent<Button>();
+        textIdentityLog = btnIdentityLog.GetComponent<Text>();
+
         btnIdentityLog.onClick.AddListener(clickIdentityLog);
         btnGetIdentity.onClick.AddListener(clickGetIdentity);
         btnLogin.onClick.AddListener(clickLogin);
         btnReg.onClick.AddListener(clickReg);
+
         btnForget.onClick.AddListener(clickForget);
 
-        textIdentityLog = btnIdentityLog.GetComponent<Text>();
+
 
         btnGetIdentity.gameObject.SetActive(false);
         inputIdentity.gameObject.SetActive(false);
         loginInfo = new LoginInfo();
-      //  Dispatch(AreaCode.NET, EventType.init, null);
+        Dispatch(AreaCode.NET, EventType.init, null);
     }
     public override void OnDestroy()
     {
@@ -76,7 +79,8 @@ public class LgoinPanel : UIBase
     }
     private void clickGetIdentity()
     {
-        Dispatch(AreaCode.NET, EventType.identy, null);
+        username = inputUserName.text;
+        Dispatch(AreaCode.NET, EventType.identy,username);
         Debug.Log("clickGetIdentity");
     }
     private void clickIdentityLog()
@@ -95,38 +99,37 @@ public class LgoinPanel : UIBase
             inputPassWord.gameObject.SetActive(true);
             inputIdentity.gameObject.SetActive(false);
             btnGetIdentity.gameObject.SetActive(false);
-            isLogIdentity=!isLogIdentity;
+            isLogIdentity = !isLogIdentity;
         }
-       
+
     }
     private void clickReg()
     {
         setPanelActive(false);
-        Dispatch(AreaCode.UI,UIEvent.REG_ACTIVE,null);
+        Dispatch(AreaCode.UI, UIEvent.REG_ACTIVE, null);
     }
     private void clickLogin()
     {
-      
+
         username = inputUserName.text;
         loginInfo.UserName = username;
 
         //TODO调试用
-        SceneMsg sceneMsg = new SceneMsg();
-        sceneMsg.SceneName = "menu";
-        Dispatch(AreaCode.SCENE,SceneEvent.MENU_PLAY_SCENE,sceneMsg);
+        //SceneMsg sceneMsg = new SceneMsg();
+        //sceneMsg.SceneName = "menu";
+        //Dispatch(AreaCode.SCENE, SceneEvent.MENU_PLAY_SCENE, sceneMsg);
 
-        //if (isLogIdentity)
-        //{
-        //    identity = inputIdentity.text;
-        //    loginInfo.Password = identity;
-        //    //Dispatch(AreaCode.NET, EventModel.USER_Model, EventType.pwlogin);
-        //    Dispatch(AreaCode.NET, EventType.pwlogin, loginInfo);
-        //}
-        //else
-        //{
-        //    password = inputPassWord.text;
-        //    loginInfo.Password = password;
-        //    Dispatch(AreaCode.NET, EventType.idlogin, loginInfo);
-        //}
+        if (isLogIdentity)
+        {
+            identity = inputIdentity.text;
+            loginInfo.Password = identity;
+            Dispatch(AreaCode.NET, EventType.idlogin, loginInfo);
+        }
+        else
+        {
+            password = inputPassWord.text;
+            loginInfo.Password = password;
+            Dispatch(AreaCode.NET, EventType.pwlogin, loginInfo);
+        }
     }
 }

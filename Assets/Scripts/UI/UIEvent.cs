@@ -11,6 +11,7 @@ public class UIEvent
     public const int CHARGE_PANEL_ACTIVE = 4;
     public const int GAMEVOICE =5 ;
     public const int GAMEBG = 6;
+    public const int FRIEND_PANEL_ACTIVE = 7;
 
     public const int HINT_ACTIVE = int.MaxValue;
 }

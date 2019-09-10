@@ -17,135 +17,112 @@ public class WebSocketManager : ManagerBase
     FriendRequestMsg friendRequestMsg = new FriendRequestMsg();
     SocketMsg socketMsg;
 
-    public override void Execute(int eventCode,  object message)
+    public override void Execute(int eventCode, object message)
     {
-        switch (eventCode)
+        //初始化操作
+        if (eventCode == EventType.init && _wabData.WebSocket == null)
         {
-            case EventType.init:
-                //初始化操作
-                if (_wabData.WebSocket == null)
+            _wabData.OpenWebSocket();
+            if (PlayerPrefs.HasKey("token"))
+            {
+                Dictionary<string, string> logMsg = new Dictionary<string, string>()
                 {
-                    _wabData.OpenWebSocket();
-                    if (PlayerPrefs.HasKey("token"))
-                    {
-                        Dictionary<string, string> logMsg = new Dictionary<string, string>()
-                        {
-                            ["token"] = PlayerPrefs.GetString("token"),
-                        };
-                        _wabData.SendMsg(logMsg);
-                    }
-                }
-                break;
-            case EventType.pwlogin:
-                //密码登入操作
-                if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
-                {
+                    ["token"] = PlayerPrefs.GetString("token"),
+                };
+                _wabData.SendMsg(logMsg);
+            }
+        }
+        if  (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive) //调试TODO(true)
+        {
+            switch (eventCode)
+            {
+                case EventType.pwlogin:
+                    //密码登入操作
                     socketMsg = accountRequestMsg.ReqPWLoginMsg(message);
+                    if (socketMsg == null)
+                    {
+                        return;
+                    }
                     _wabData.SendMsg(socketMsg);
-                }
-                break;
-            case EventType.idlogin:
-                //验证码登入
-                if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
-                {
+                    break;
+                case EventType.idlogin:
+                    //验证码登入
                     socketMsg = accountRequestMsg.ReqIDLoginMsg(message);
                     _wabData.SendMsg(socketMsg);
-                }
-                break;
-            case EventType.regist:
-                //注册操作
-                if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
-                {
+                    break;
+                case EventType.regist:
+                    //注册操作
                     socketMsg = accountRequestMsg.ReqRegMsg(message);
+                    if (socketMsg == null)
+                    {
+                        return;
+                    }
                     _wabData.SendMsg(socketMsg);
-                }
-                break;
-            case EventType.pwforget:
-                //忘记密码
-                if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
-                {
+                    break;
+                case EventType.pwforget:
+                    //忘记密码
                     socketMsg = accountRequestMsg.ReqPWChangeMsg(message);
                     _wabData.SendMsg(socketMsg);
-                }
-                break;
-            case EventType.addfriend:
-                //添加好友
-                if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
-                {
+                    break;
+                case EventType.addfriend:
+                    //添加好友
                     socketMsg = friendRequestMsg.ReqAddFriendMsg(message);
                     _wabData.SendMsg(socketMsg);
-                }
-                break;
-            case EventType.identy:
-                //获取验证码
-                //TODO
-                //if (_wabData.WebSocket != null && _wabData.WebSocket.IsOpen)
-                //{
-
-                //    //msg.Change(PlayerPrefs.GetString("clientId"), "", "", "", "", message.ToString());
-                //   // _wabData.WebSocket.Send(msg.ToString());
-                //}
-                break;
-            case EventType.expw:
-                //修改密码TODO 暂时设置和忘记密码模块一样
-                if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
-                {
+                    break;
+                case EventType.identy:
+                    //获取验证码
+                    socketMsg = accountRequestMsg.ReqPWChangeMsg(message);
+                    if (socketMsg == null)
+                    {
+                        return;
+                    }
+                    _wabData.SendMsg(socketMsg);
+                    break;
+                case EventType.expw:
+                    //修改密码TODO 暂时设置和忘记密码模块一样
                     socketMsg = accountRequestMsg.ReqPWChangeMsg(message);
                     _wabData.SendMsg(socketMsg);
-                }
-                break;
-            case EventType.expwshop:
-                //设置交易密码
-                if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
-                {
+                    break;
+                case EventType.expwshop:
+                    //设置交易密码
                     socketMsg = accountRequestMsg.ReqPWChangeMsg(message);
                     _wabData.SendMsg(socketMsg);
-                }
-                break;
-            case EventType.voiceset:
-                //音效设置
-                if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
-                {
+                    break;
+                case EventType.voiceset:
+                    //音效设置
                     socketMsg = accountRequestMsg.ReqVoiceSetMsg(message);
                     _wabData.SendMsg(socketMsg);
-                }
-                break;
-            case EventType.searchfriend:
-                //搜索用户
-                if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
-                {
+                    break;
+                case EventType.searchfriend:
+                    //搜索用户
                     socketMsg = friendRequestMsg.ReqSearchUserMsg(message);
+                    if (socketMsg == null)
+                    {
+                        return;
+                    }
                     _wabData.SendMsg(socketMsg);
-                }
-                break;
-            case EventType.likefriend:
-                //好友点赞
-                if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
-                {
+                    break;
+                case EventType.likefriend:
+                    //好友点赞
                     socketMsg = friendRequestMsg.ReqLikeFriendMsg(message);
                     _wabData.SendMsg(socketMsg);
-                }
-                break;
-            case EventType.applytofriend:
-                //申请通过/拒绝
-                if (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive)
-                {
+                    break;
+                case EventType.applytofriend:
+                    //申请通过/拒绝
                     socketMsg = friendRequestMsg.ReqAgreeFriendMsg(message);
                     _wabData.SendMsg(socketMsg);
-                }
-                break;
-            case EventType.exit:
-                //if (_wabData.WebSocket != null && _wabData.WebSocket.IsOpen)
-                //{
-                //   //msg.Change(PlayerPrefs.GetString("clientId"), "", "", "", "", message[0].ToString());
-                //   // _wabData.WebSocket.Send(msg.ToString());
-                //}
-                //_wabData.WebSocket.Close(1000, "Bye!");
+                    break;
+                case EventType.exit:
+                    socketMsg = new SocketMsg();
+                    socketMsg.desc = "exit";
+                    socketMsg.data = null;
+                    _wabData.SendMsg(socketMsg);
+                    _wabData.WebSocket.Close(1000, "Bye!");
+                    break;
 
-                break;
-                
-            default:
-                break;
+                default:
+                    break;
+            }
         }
     }
     #endregion
@@ -192,7 +169,7 @@ public class WebSocketManager : ManagerBase
         }
     }
 
-    
+
     void OnDestroy()
     {
         //if (_wabData.WebSocket != null)
@@ -204,7 +181,7 @@ public class WebSocketManager : ManagerBase
         _address = GUILayout.TextField(_address);
     }
 
-   
+
 
 
     #region 处理接收到的服务器发来的消息
@@ -219,17 +196,17 @@ public class WebSocketManager : ManagerBase
         switch (msg.data.type)
         {
             case "log":
-                if(accountHandler.OnReceive(EventType.login, msg.data.t["desc"]))
+                if (accountHandler.OnReceive(EventType.login, msg.data.t["desc"]))
                 {
                     if (msg.data.t.ContainsKey("token"))
                     {
                         PlayerPrefs.SetString("token", msg.data.t["token"]);
                     }
-                    PlayerPrefs.SetString("username",msg.data.t["username"]);
+                    PlayerPrefs.SetString("username", msg.data.t["username"]);
                     _wabData.ThreadStart();
                 }
                 break;
-           
+
             case "reg":
                 accountHandler.OnReceive(EventType.regist, msg.desc);
                 break;
@@ -247,7 +224,7 @@ public class WebSocketManager : ManagerBase
         switch (msg.data.type)
         {
             case "voice":
-               // setHandler.OnReceive(EventType.voiceset, msg.data.t);
+                // setHandler.OnReceive(EventType.voiceset, msg.data.t);
                 break;
 
             case "expw":
@@ -270,10 +247,10 @@ public class WebSocketManager : ManagerBase
         switch (msg.data.type)
         {
             case "addfriend":
-                friendHandler.OnReceive(EventType.addfriend , msg.data.t["desc"]);
+                friendHandler.OnReceive(EventType.addfriend, msg.data.t["desc"]);
                 break;
             case "likefriend":
-               // friendHandler.OnReceive(EventType.likefriend, msg.data.t["desc"]);
+                // friendHandler.OnReceive(EventType.likefriend, msg.data.t["desc"]);
                 break;
             case "seachfriend":
                 friendHandler.OnReceive(EventType.searchfriend, msg.data.t);
@@ -282,7 +259,7 @@ public class WebSocketManager : ManagerBase
                 friendHandler.OnReceive(EventType.squarefriend, msg.data.t);
                 break;
             case "applyfriend":
-                
+
                 friendHandler.OnReceive(EventType.applyfriend, msg.data.t);
                 break;
             default:

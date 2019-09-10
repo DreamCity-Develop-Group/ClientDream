@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public static class MsgTool 
@@ -73,5 +74,57 @@ public static class MsgTool
         }
         return tmp.ToString();
     }
-
+    /// <summary>
+    /// 匹配手机格式
+    /// </summary>
+    /// <param name="mobile"></param>
+    /// <returns></returns>
+    public static bool CheckMobile(string mobile)
+    {
+        Regex regex = new Regex(@"^[1][3-8]\d{9}$");
+        return regex.IsMatch(mobile);
+    }
+    /// <summary>
+    /// 匹配密码格式
+    /// </summary>
+    /// <param name="pw"></param>
+    /// <returns></returns>
+    public static bool CheckPass(string pw)
+    {
+        Regex regex = new Regex(@"^[0-9a-zA-Z_]{8,16}$");
+        return regex.IsMatch(pw);
+    }
+    /// <summary>
+    /// 匹配昵称格式
+    /// </summary>
+    /// <param name="mobile"></param>
+    /// <returns></returns>
+    public static bool CheckNickName(string nick)
+    {
+        Regex regex = new Regex(@"^[\u4e00-\u9fa50-9a-zA-Z_]{2,10}$");
+        return regex.IsMatch(nick);
+    }
+    /// <summary>
+    /// 生成二维码
+    /// </summary>
+    /// <param name="textForEncoding"></param>
+    /// <param name="width"></param>
+    /// <param name="height"></param>
+    /// <returns></returns>
+    //private static Color32[] Encode(string textForEncoding, int width, int height)
+    //{
+    //    //var writer = new BarcodeWriter
+    //    //{
+    //    //    Format = BarcodeFormat.QR_CODE,
+    //    //    Options = new QrCodeEncodingOptions
+    //    //    {
+    //    //        Height = height,
+    //    //        Width = width,
+    //    //        Margin = 2,
+    //    //        PureBarcode = true
+    //    //    }
+    //    //};
+    //    //return writer.Write(textForEncoding);
+    //}
+   
 }

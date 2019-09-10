@@ -17,18 +17,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class FriendRequestMsg 
+public class FriendRequestMsg :RequestBase
 {
-    /// <summary>
-    /// 发UI消息
-    /// </summary>
-    /// <param name="areaCode">Area code.</param>
-    /// <param name="eventCode">Event code.</param>
-    /// <param name="message">Message.</param>
-    public void Dispatch(int areaCode, int eventCode, object message)
-    {
-        MsgCenter.Instance.Dispatch(areaCode, eventCode, message);
-    }
+   
 
     /// <summary>
     /// 申请消息
@@ -97,6 +88,11 @@ public class FriendRequestMsg
     public SocketMsg ReqSearchUserMsg(object msg)
     {
         string nickName = msg.ToString();
+        if (nickName == null)
+        {
+            //TODO提示界面
+            return null;
+        }
         MessageData messageData = new MessageData();
         messageData.t = new Dictionary<string, string>
         {
