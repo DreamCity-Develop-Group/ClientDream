@@ -4,6 +4,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using ZXing;
+using ZXing.QrCode;
 
 public static class MsgTool 
 {
@@ -111,20 +113,34 @@ public static class MsgTool
     /// <param name="width"></param>
     /// <param name="height"></param>
     /// <returns></returns>
-    //private static Color32[] Encode(string textForEncoding, int width, int height)
+    public static Color32[] Encode(string textForEncoding, int width, int height)
+    {
+        var writer = new BarcodeWriter
+        {
+            Format = BarcodeFormat.QR_CODE,
+            Options = new QrCodeEncodingOptions
+            {
+                Height = height,
+                Width = width,
+                Margin = 2,
+                PureBarcode = true
+            }
+        };
+        return writer.Write(textForEncoding);
+    }
+
+    //void DoPicture()//存储为png
     //{
-    //    //var writer = new BarcodeWriter
-    //    //{
-    //    //    Format = BarcodeFormat.QR_CODE,
-    //    //    Options = new QrCodeEncodingOptions
-    //    //    {
-    //    //        Height = height,
-    //    //        Width = width,
-    //    //        Margin = 2,
-    //    //        PureBarcode = true
-    //    //    }
-    //    //};
-    //    //return writer.Write(textForEncoding);
+
+    //    if (!File.Exists(filespath))//首先判断一下该图片文件是否存在
+    //    {
+    //        if (!Directory.Exists(folderpath))//再判断一下该文件夹是否存在，若不存在先创建
+    //        {
+    //            Directory.CreateDirectory(folderpath);//创建目录
+    //        }
+    //        var bys = encoded.EncodeToPNG();//转换图片资源
+    //        File.WriteAllBytes(filespath, bys);//保存图片到写好的目录下
+    //    }
     //}
-   
+
 }

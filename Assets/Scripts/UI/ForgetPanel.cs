@@ -30,7 +30,7 @@ public class ForgetPanel : UIBase
         switch (eventCode)
         {
             case UIEvent.Forget_ACTIVE:
-                setPanelActive(true);
+                setPanelActive((bool)message);
                 break;
             default:
                 break;

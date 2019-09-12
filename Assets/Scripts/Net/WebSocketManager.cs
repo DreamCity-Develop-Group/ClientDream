@@ -15,6 +15,7 @@ public class WebSocketManager : ManagerBase
     #region 处理发送服务器的请求
     AccountRequestMsg accountRequestMsg = new AccountRequestMsg();
     FriendRequestMsg friendRequestMsg = new FriendRequestMsg();
+    SetRequestMsg setRequestMsg = new SetRequestMsg();
     SocketMsg socketMsg;
 
     public override void Execute(int eventCode, object message)
@@ -32,7 +33,8 @@ public class WebSocketManager : ManagerBase
                 _wabData.SendMsg(logMsg);
             }
         }
-        if  (_wabData.WebSocket != null && _wabData.WebSocket.IsAlive) //调试TODO(true)
+
+        if  (_wabData.WebSocket!=null&&_wabData.WebSocket.IsAlive) //调试TODO(true)
         {
             switch (eventCode)
             {
@@ -71,7 +73,7 @@ public class WebSocketManager : ManagerBase
                     break;
                 case EventType.identy:
                     //获取验证码
-                    socketMsg = accountRequestMsg.ReqPWChangeMsg(message);
+                    socketMsg = accountRequestMsg.ReqGetIdentityMsg(message);
                     if (socketMsg == null)
                     {
                         return;
@@ -85,12 +87,12 @@ public class WebSocketManager : ManagerBase
                     break;
                 case EventType.expwshop:
                     //设置交易密码
-                    socketMsg = accountRequestMsg.ReqPWChangeMsg(message);
+                    socketMsg = setRequestMsg.ReqExPwShopMsg(message);
                     _wabData.SendMsg(socketMsg);
                     break;
                 case EventType.voiceset:
                     //音效设置
-                    socketMsg = accountRequestMsg.ReqVoiceSetMsg(message);
+                    socketMsg = setRequestMsg.ReqVoiceSetMsg(message);
                     _wabData.SendMsg(socketMsg);
                     break;
                 case EventType.searchfriend:
@@ -124,6 +126,10 @@ public class WebSocketManager : ManagerBase
                     break;
             }
         }
+        else
+        {
+            Debug.LogError("连接断开");
+        }
     }
     #endregion
     #region Private Fields
@@ -144,18 +150,15 @@ public class WebSocketManager : ManagerBase
     Vector2 _scrollPos;
 
     private WebData _wabData;
-    //private SocketMsg msg ;
 
     #endregion
 
-    #region Unity Events
 
     void Start()
     {
         _wabData = new WebData();
         _address = _wabData.Address;
         _text = _wabData.Text;
-        //msg = new SocketMsg();
     }
 
     void Update()
@@ -181,9 +184,6 @@ public class WebSocketManager : ManagerBase
         _address = GUILayout.TextField(_address);
     }
 
-
-
-
     #region 处理接收到的服务器发来的消息
     HandlerBase accountHandler = new AccoutHandler();
 
@@ -195,34 +195,22 @@ public class WebSocketManager : ManagerBase
     {
         switch (msg.data.type)
         {
-            case "log":
+           
+            case "logoin":
                 if (accountHandler.OnReceive(EventType.login, msg.data.t["desc"]))
                 {
                     if (msg.data.t.ContainsKey("token"))
                     {
                         PlayerPrefs.SetString("token", msg.data.t["token"]);
                     }
-                    PlayerPrefs.SetString("username", msg.data.t["username"]);
+                   
                     _wabData.ThreadStart();
                 }
                 break;
 
             case "reg":
-                accountHandler.OnReceive(EventType.regist, msg.desc);
+                accountHandler.OnReceive(EventType.regist, msg.data.t["desc"]);
                 break;
-            default:
-                break;
-        }
-    }
-    HandlerBase setHandler = new SetHandler();
-    /// <summary>
-    /// 设置模块
-    /// </summary>
-    /// <param name="msg"></param>
-    private void setSocketMsg(SocketMsg msg)
-    {
-        switch (msg.data.type)
-        {
             case "voice":
                 // setHandler.OnReceive(EventType.voiceset, msg.data.t);
                 break;
@@ -233,19 +221,6 @@ public class WebSocketManager : ManagerBase
             case "expwshop":
                 setHandler.OnReceive(EventType.expw, msg.data.t["desc"]);
                 break;
-            default:
-                break;
-        }
-    }
-    HandlerBase friendHandler = new FriendHandler();
-    /// <summary>
-    /// friend模块
-    /// </summary>
-    /// <param name="msg"></param>
-    private void friendSocketMsg(SocketMsg msg)
-    {
-        switch (msg.data.type)
-        {
             case "addfriend":
                 friendHandler.OnReceive(EventType.addfriend, msg.data.t["desc"]);
                 break;
@@ -262,10 +237,65 @@ public class WebSocketManager : ManagerBase
 
                 friendHandler.OnReceive(EventType.applyfriend, msg.data.t);
                 break;
+            case "pwforget":
+                //setHandler.OnReceive(EventType)
+                break;
             default:
                 break;
         }
     }
+    HandlerBase setHandler = new SetHandler();
+    /// <summary>
+    /// 设置模块
+    /// </summary>
+    /// <param name="msg"></param>
+    //private void setSocketMsg(SocketMsg msg)
+    //{
+    //    switch (msg.data.type)
+    //    {
+    //        case "voice":
+    //            // setHandler.OnReceive(EventType.voiceset, msg.data.t);
+    //            break;
+
+    //        case "expw":
+    //            setHandler.OnReceive(EventType.expw, msg.data.t["desc"]);
+    //            break;
+    //        case "expwshop":
+    //            setHandler.OnReceive(EventType.expw, msg.data.t["desc"]);
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
+    HandlerBase friendHandler = new FriendHandler();
+    /// <summary>
+    /// friend模块
+    /// </summary>
+    /// <param name="msg"></param>
+    //private void friendSocketMsg(SocketMsg msg)
+    //{
+    //    switch (msg.data.type)
+    //    {
+    //        case "addfriend":
+    //            friendHandler.OnReceive(EventType.addfriend, msg.data.t["desc"]);
+    //            break;
+    //        case "likefriend":
+    //            // friendHandler.OnReceive(EventType.likefriend, msg.data.t["desc"]);
+    //            break;
+    //        case "seachfriend":
+    //            friendHandler.OnReceive(EventType.searchfriend, msg.data.t);
+    //            break;
+    //        case "squarefriend":
+    //            friendHandler.OnReceive(EventType.squarefriend, msg.data.t);
+    //            break;
+    //        case "applyfriend":
+
+    //            friendHandler.OnReceive(EventType.applyfriend, msg.data.t);
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
 
     /// <summary>
     /// 处理接收到的服务器发来的消息模块
@@ -275,28 +305,28 @@ public class WebSocketManager : ManagerBase
     {
         switch (msg.data.model)
         {
-            case "user":
+            case "consumer":
                 if (msg.data.t.ContainsKey("desc"))
                 {
                     accountSocketMsg(msg);
                 }
                 break;
             case "socket":
-                Debug.Log("target" + msg.target);
-                PlayerPrefs.SetString("ClientId", msg.target);
-                Debug.Log(PlayerPrefs.GetString("ClientId"));
-                accountHandler.OnReceive(AccountCode.INIT, msg.target);
+                //Debug.Log("target" + msg.target);
+                //PlayerPrefs.SetString("ClientId", msg.target);
+                LoginInfo.ClientId = msg.target;
+                Debug.Log(LoginInfo.ClientId);
+                accountHandler.OnReceive(EventType.init, msg.target);
                 break;
-            case "set":
-                setSocketMsg(msg);
-                break;
-            case "friend":
-                friendSocketMsg(msg);
-                break;
+            //case "set":
+            //    accountSocketMsg(msg);
+            //    break;
+            //case "friend":
+            //    accountSocketMsg(msg);
+            //    break;
             default:
                 break;
         }
     }
     #endregion
 }
-#endregion

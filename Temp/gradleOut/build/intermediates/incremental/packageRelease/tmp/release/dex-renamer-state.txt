@@ -1,0 +1,4 @@
+#Thu Sep 12 18:18:27 CST 2019
+base.0=D\:\\UnityWorkPace\\ClientDream\\Temp\\gradleOut\\build\\intermediates\\transforms\\dexMerger\\release\\0
+path.0=classes.dex
+renamed.0=classes.dex

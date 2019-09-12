@@ -23,7 +23,7 @@ public class RegistPanel : UIBase
     private void Awake()
     {
         Bind(UIEvent.REG_ACTIVE);
-        setPanelActive(false);
+       
     }
 
     public override void Execute(int eventCode, object message)
@@ -31,7 +31,7 @@ public class RegistPanel : UIBase
         switch (eventCode)
         {
             case UIEvent.REG_ACTIVE:
-                 setPanelActive(true);
+                 setPanelActive((bool)message);
                 break;
             default:
                 break;
@@ -53,6 +53,7 @@ public class RegistPanel : UIBase
         btnRegist.onClick.AddListener(clickRegist);
         btnReturn.onClick.AddListener(clickReturn);
         btnRegist.enabled = false;
+        setPanelActive(false);
     }
     private void clickIdentify()
     {
@@ -64,7 +65,7 @@ public class RegistPanel : UIBase
     private void clickReturn()
     {
         setPanelActive(false);
-        Dispatch(AreaCode.UI,UIEvent.LOG_ACTIVE,null);
+        Dispatch(AreaCode.UI,UIEvent.LOG_ACTIVE,true);
     }
     private void clickRegist()
     {

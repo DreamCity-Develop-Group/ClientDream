@@ -10,6 +10,8 @@ using UnityEngine;
 /// </summary>
 public class MsgCenter : MonoBase
 {
+    //TODO测试用
+
     public static MsgCenter Instance = null;
 
     void Awake()

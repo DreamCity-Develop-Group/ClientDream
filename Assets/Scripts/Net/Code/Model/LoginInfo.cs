@@ -19,6 +19,7 @@ public class LoginInfo
         this.Password = password;
         //this.IsIdentity = Isidentity;
     }
+    public static string ClientId;
     public string IsIdentityLog;
     public string UserName;//{ get => phone; set => phone = value; }
     public string Password;// { get => password; set => password = value; }

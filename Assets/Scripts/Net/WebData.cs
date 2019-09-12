@@ -2,9 +2,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Threading;
-using LitJson;
+//using LitJson;
 using WebSocketSharp;
 using System.Text;
+using LitJson;
 
 public class WebData
 {
@@ -13,6 +14,7 @@ public class WebData
     /// </summary>  
     //private readonly string address = "ws://192.168.0.102:8010/dream/city/";
     private readonly string address = "ws://192.168.0.101:8010/dream/city/lili/你发";
+    //private string address;
 
     /// <summary>  
     /// Default text to send  
@@ -32,6 +34,8 @@ public class WebData
     /// </summary>  
     private string _text = string.Empty;
 
+    public static string ClientId;
+
     /// <summary>  
     /// Saved WebSocket instance  
     /// </summary>  
@@ -48,6 +52,8 @@ public class WebData
     {
             if (_webSocket == null)
             {
+            //测试
+            //address = MsgCenter.address;
             // Create the WebSocket instance  
             _webSocket = new WebSocket(address,null);
             // Start connecting to the server  
@@ -80,7 +86,7 @@ public class WebData
             }
             //string jsonmsg = JsonMapper.ToJson(msg);
             string jsonmsg = JsonMapper.ToJson(msg);
-            Debug.Log(jsonmsg);
+            Debug.Log("sendMsg: "+jsonmsg);
         _webSocket.Send(jsonmsg);
     }
     string statusDescription;
@@ -138,7 +144,7 @@ public class WebData
     /// </summary>  
     void OnMessageReceived(string jsonmsg)
      {
-        Debug.Log(jsonmsg);
+        Debug.Log("receiveMsg:  "+jsonmsg);
         if (jsonmsg.Contains("success"))
         {
             if (jsonmsg.Length>7)
@@ -156,7 +162,7 @@ public class WebData
         // SocketMsg info = JsonUtility.FromJson<SocketMsg>(jsonmsg);
         //if (info.data.type.Equals("init"))
         //    PlayerPrefs.SetString("ClientId", info.source);
-        Debug.Log("test"+info.target+","+info.desc+","+info.data.model);
+        Debug.Log("testTojson: "+"target:"+info.target+","+"desc: "+info.desc+","+"model: "+info.data.model);
         if (info != null)
         {
             //TODO 过滤过时消息

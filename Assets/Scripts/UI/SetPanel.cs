@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class SetPanel: UIBase
 {
-    Button btnSet;
     Button btnMusic;
     Button btnHelp;
     Button btnChangePW;
@@ -37,11 +36,9 @@ public class SetPanel: UIBase
         btnChangeExPW = transform.Find("BtnChangeExPW").GetComponent<Button>();
         btnChangePW = transform.Find("BtnChangePW").GetComponent<Button>();
         btnExit = transform.Find("BtnExit").GetComponent<Button>();
-
         btnClose = transform.Find("BtnClose").GetComponent<Button>();
         btnClose.onClick.AddListener(clickClose);
         btnMusic.onClick.AddListener(clickMusic);
-        btnSet.onClick.AddListener(clickSet);
         btnExit.onClick.AddListener(clickExit);
         setPanelActive(false);
     }
@@ -52,11 +49,6 @@ public class SetPanel: UIBase
 
         //Dispatch(AreaCode.NET,EventType.set,)
     }
-    private void clickSet()
-    {
-        setPanelActive(true);
-    }
-
     private void clickExit()
     {
         Dispatch(AreaCode.NET,EventType.exit,null);
@@ -69,10 +61,9 @@ public class SetPanel: UIBase
     public override void OnDestroy()
     {
         base.OnDestroy();
-        btnSet.onClick.RemoveAllListeners();
+        btnClose.onClick.RemoveAllListeners();
         //btnMusic.onClick.RemoveAllListeners();
         //btnHelp.onClick.RemoveAllListeners();
-        //btnSet.onClick.RemoveAllListeners();
         //btnChangeExPW.onClick.RemoveAllListeners();
         //btnChangePW.onClick.RemoveAllListeners();
     }

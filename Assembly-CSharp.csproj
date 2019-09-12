@@ -62,38 +62,48 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Plugin\Serialization.cs" />
-    <Compile Include="Assets\Plugin\WWWManager.cs" />
-    <Compile Include="Assets\Plugin\XMLManager.cs" />
     <Compile Include="Assets\Scripts\Framework\AreaCode.cs" />
     <Compile Include="Assets\Scripts\Framework\ManagerBase.cs" />
     <Compile Include="Assets\Scripts\Framework\MonoBase.cs" />
     <Compile Include="Assets\Scripts\Framework\MsgCenter.cs" />
     <Compile Include="Assets\Scripts\Net\Code\AccountCode.cs" />
     <Compile Include="Assets\Scripts\Net\Code\MessageData.cs" />
-    <Compile Include="Assets\Scripts\Net\Code\Model\HeartInfo.cs" />
+    <Compile Include="Assets\Scripts\Net\Code\Model\ApplyInfo.cs" />
     <Compile Include="Assets\Scripts\Net\Code\Model\LoginInfo.cs" />
+    <Compile Include="Assets\Scripts\Net\Code\Model\SetInfo.cs" />
     <Compile Include="Assets\Scripts\Net\Code\Model\UserInfo.cs" />
     <Compile Include="Assets\Scripts\Net\Code\SocketMsg.cs" />
-    <Compile Include="Assets\Scripts\Net\EventCmd.cs" />
+    <Compile Include="Assets\Scripts\Net\EventType.cs" />
     <Compile Include="Assets\Scripts\Net\Handler\AccoutHandler.cs" />
+    <Compile Include="Assets\Scripts\Net\Handler\FriendHandler.cs" />
     <Compile Include="Assets\Scripts\Net\Handler\HandlerBase.cs" />
+    <Compile Include="Assets\Scripts\Net\Handler\SetHandler.cs" />
     <Compile Include="Assets\Scripts\Net\Request\AccountRequestMsg.cs" />
+    <Compile Include="Assets\Scripts\Net\Request\FriendRequestMsg.cs" />
+    <Compile Include="Assets\Scripts\Net\Request\RequestBase.cs" />
+    <Compile Include="Assets\Scripts\Net\Request\SetRequestMsg.cs" />
     <Compile Include="Assets\Scripts\Net\WebData.cs" />
     <Compile Include="Assets\Scripts\Net\WebSocketManager.cs" />
     <Compile Include="Assets\Scripts\Scenes\Msg\SceneMsg.cs" />
     <Compile Include="Assets\Scripts\Scenes\SceneEvent.cs" />
     <Compile Include="Assets\Scripts\Scenes\ScenesMgr.cs" />
     <Compile Include="Assets\Scripts\Tools\MsgTool.cs" />
+    <Compile Include="Assets\Scripts\UI\ChargePanel.cs" />
+    <Compile Include="Assets\Scripts\UI\ForgetPanel.cs" />
+    <Compile Include="Assets\Scripts\UI\FriendPanel.cs" />
     <Compile Include="Assets\Scripts\UI\HintPanel.cs" />
     <Compile Include="Assets\Scripts\UI\LgoinPanel.cs" />
     <Compile Include="Assets\Scripts\UI\MenuPanel.cs" />
     <Compile Include="Assets\Scripts\UI\Msg\HintMsg.cs" />
+    <Compile Include="Assets\Scripts\UI\MsgPanel.cs" />
+    <Compile Include="Assets\Scripts\UI\QRecodePanel.cs" />
     <Compile Include="Assets\Scripts\UI\RegistPanel.cs" />
     <Compile Include="Assets\Scripts\UI\SetPanel.cs" />
     <Compile Include="Assets\Scripts\UI\UIBase.cs" />
     <Compile Include="Assets\Scripts\UI\UIEvent.cs" />
     <Compile Include="Assets\Scripts\UI\UIManager.cs" />
+    <None Include="Assets\Plugin\Anroid\res\values\values.xml" />
+    <None Include="Assets\Plugin\Anroid\AndroidManifest.xml" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/UnityWorkPace/ClientDream/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
@@ -322,11 +332,14 @@
     <Reference Include="UnityEngine.XRModule">
       <HintPath>D:/Hub/2019.2.4f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
     </Reference>
-    <Reference Include="LitJson">
-      <HintPath>D:/UnityWorkPace/ClientDream/Assets/Plugin/LitJson.dll</HintPath>
+    <Reference Include="LitJSON">
+      <HintPath>D:/UnityWorkPace/ClientDream/Assets/Plugin/Any/LitJSON.dll</HintPath>
     </Reference>
     <Reference Include="websocket-sharp">
-      <HintPath>D:/UnityWorkPace/ClientDream/Assets/Plugin/websocket-sharp.dll</HintPath>
+      <HintPath>D:/UnityWorkPace/ClientDream/Assets/Plugin/Any/websocket-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.unity">
+      <HintPath>D:/UnityWorkPace/ClientDream/Assets/Plugin/Any/zxing.unity.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>D:/UnityWorkPace/ClientDream/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>

@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\AssetBoundTool.cs" />
+    <Compile Include="Assets\Editor\Copyright.cs" />
     <Reference Include="UnityEditor.TestRunner">
       <HintPath>D:/UnityWorkPace/ClientDream/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
     </Reference>
@@ -321,11 +322,14 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
-    <Reference Include="LitJson">
-      <HintPath>D:/UnityWorkPace/ClientDream/Assets/Plugin/LitJson.dll</HintPath>
+    <Reference Include="LitJSON">
+      <HintPath>D:/UnityWorkPace/ClientDream/Assets/Plugin/Any/LitJSON.dll</HintPath>
     </Reference>
     <Reference Include="websocket-sharp">
-      <HintPath>D:/UnityWorkPace/ClientDream/Assets/Plugin/websocket-sharp.dll</HintPath>
+      <HintPath>D:/UnityWorkPace/ClientDream/Assets/Plugin/Any/websocket-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.unity">
+      <HintPath>D:/UnityWorkPace/ClientDream/Assets/Plugin/Any/zxing.unity.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>D:/UnityWorkPace/ClientDream/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>

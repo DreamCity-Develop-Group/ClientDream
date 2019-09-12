@@ -30,7 +30,7 @@ public class LgoinPanel : UIBase
         switch (eventCode)
         {
             case UIEvent.LOG_ACTIVE:
-                setPanelActive(true);
+                setPanelActive((bool)message);
                 break;
             default:
                 break;
@@ -61,7 +61,8 @@ public class LgoinPanel : UIBase
         btnGetIdentity.gameObject.SetActive(false);
         inputIdentity.gameObject.SetActive(false);
         loginInfo = new LoginInfo();
-        Dispatch(AreaCode.NET, EventType.init, null);
+        //Dispatch(AreaCode.NET, EventType.init, null);
+
     }
     public override void OnDestroy()
     {
@@ -74,7 +75,7 @@ public class LgoinPanel : UIBase
 
     private void clickForget()
     {
-        Dispatch(AreaCode.UI, UIEvent.Forget_ACTIVE, null);
+        Dispatch(AreaCode.UI, UIEvent.Forget_ACTIVE, true);
         Debug.Log("clickGetIdentity");
     }
     private void clickGetIdentity()
@@ -85,6 +86,7 @@ public class LgoinPanel : UIBase
     }
     private void clickIdentityLog()
     {
+        
         if (!isLogIdentity)
         {
             textIdentityLog.text = "密码登入";
@@ -106,18 +108,14 @@ public class LgoinPanel : UIBase
     private void clickReg()
     {
         setPanelActive(false);
-        Dispatch(AreaCode.UI, UIEvent.REG_ACTIVE, null);
+        Dispatch(AreaCode.UI, UIEvent.REG_ACTIVE, true);
     }
     private void clickLogin()
     {
-
+        //testTODO调试用
+        Dispatch(AreaCode.SCENE, SceneEvent.MENU_PLAY_SCENE, new SceneMsg("menu", null));
         username = inputUserName.text;
         loginInfo.UserName = username;
-
-        //TODO调试用
-        //SceneMsg sceneMsg = new SceneMsg();
-        //sceneMsg.SceneName = "menu";
-        //Dispatch(AreaCode.SCENE, SceneEvent.MENU_PLAY_SCENE, sceneMsg);
 
         if (isLogIdentity)
         {

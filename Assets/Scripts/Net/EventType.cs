@@ -25,6 +25,8 @@ public class EventType
     public const int applyfriend = 14;//申请列表
     public const int applytofriend = 15;//申请通过/拒绝
 
+    public const int getrecode = 16;//获取二维码
+
 
 
 

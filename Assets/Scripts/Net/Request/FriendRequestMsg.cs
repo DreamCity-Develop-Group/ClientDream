@@ -37,7 +37,7 @@ public class FriendRequestMsg :RequestBase
         };
         messageData.model = "friend";
         messageData.type = "addfriend";
-        SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"), "申请好友操作", messageData);
+        SocketMsg socketMsg = new SocketMsg(LoginInfo.ClientId, "申请好友操作", messageData);
         return socketMsg;
     }
     /// <summary>
@@ -54,7 +54,7 @@ public class FriendRequestMsg :RequestBase
         messageData.model = "friend";
         messageData.type = "addfriend";
 
-        SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"), "添加好友操作", messageData);
+        SocketMsg socketMsg = new SocketMsg(LoginInfo.ClientId, "添加好友操作", messageData);
         //TODO
         //Dispatch(AreaCode.UI,11111,"removeList");
         return socketMsg;
@@ -76,7 +76,7 @@ public class FriendRequestMsg :RequestBase
         };
         messageData.model = "friend";
         messageData.type = "likefriend";
-        SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"), "好友点赞", messageData);
+        SocketMsg socketMsg = new SocketMsg(LoginInfo.ClientId, "好友点赞", messageData);
         //Dispatch(AreaCode.UI,11111,"activefalse");
         return socketMsg;
     }
@@ -100,7 +100,7 @@ public class FriendRequestMsg :RequestBase
         };
         messageData.model = "friend";
         messageData.type = "searchfriend";
-        SocketMsg socketMsg = new SocketMsg(PlayerPrefs.GetString("ClientId"), "搜索用户", messageData);
+        SocketMsg socketMsg = new SocketMsg(LoginInfo.ClientId, "搜索用户", messageData);
         return socketMsg;
     }
 }
