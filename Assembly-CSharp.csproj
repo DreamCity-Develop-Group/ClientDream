@@ -98,10 +98,12 @@
     <Compile Include="Assets\Scripts\UI\MsgPanel.cs" />
     <Compile Include="Assets\Scripts\UI\QRecodePanel.cs" />
     <Compile Include="Assets\Scripts\UI\RegistPanel.cs" />
+    <Compile Include="Assets\Scripts\UI\SecurityPanel.cs" />
     <Compile Include="Assets\Scripts\UI\SetPanel.cs" />
     <Compile Include="Assets\Scripts\UI\UIBase.cs" />
     <Compile Include="Assets\Scripts\UI\UIEvent.cs" />
     <Compile Include="Assets\Scripts\UI\UIManager.cs" />
+    <Compile Include="Assets\Scripts\UI\VoicePanel.cs" />
     <None Include="Assets\Plugin\Anroid\res\values\values.xml" />
     <None Include="Assets\Plugin\Anroid\AndroidManifest.xml" />
     <Reference Include="Unity.Timeline.Editor">
