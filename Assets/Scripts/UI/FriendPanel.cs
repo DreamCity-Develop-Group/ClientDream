@@ -24,6 +24,14 @@ public class FriendPanel : UIBase
     {
         Bind(UIEvent.FRIEND_PANEL_ACTIVE);
     }
+    /// <summary>
+    /// 用户名，个人信息
+    /// str["123"].img
+    /// </summary>
+    /// <param name="eventCode"></param>
+    /// <param name="message"></param>
+//Dictionary<string ,UserInfo>()
+
     public override void Execute(int eventCode, object message)
     {
         switch (eventCode)
@@ -73,6 +81,7 @@ public class FriendPanel : UIBase
     private void clickGround()
     {
         textTitle.text = "广场";
+        //
     }
     private void clickFriend()
     {

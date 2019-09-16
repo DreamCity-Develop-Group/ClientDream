@@ -90,11 +90,11 @@ public class WebSocketManager : ManagerBase
                     socketMsg = setRequestMsg.ReqExPwShopMsg(message);
                     _wabData.SendMsg(socketMsg);
                     break;
-                case EventType.voiceset:
-                    //音效设置
-                    socketMsg = setRequestMsg.ReqVoiceSetMsg(message);
-                    _wabData.SendMsg(socketMsg);
-                    break;
+                //case EventType.voiceset:
+                //    //音效设置
+                //    socketMsg = setRequestMsg.ReqVoiceSetMsg(message);
+                //    _wabData.SendMsg(socketMsg);
+                //    break;
                 case EventType.searchfriend:
                     //搜索用户
                     socketMsg = friendRequestMsg.ReqSearchUserMsg(message);

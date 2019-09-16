@@ -44,11 +44,18 @@ public class UIEvent
     /// 邮件界面
     /// </summary>
     public const int MSG_PANEL_ACTIVE = 9;
-    
-    
-    
+    /// <summary>
+    /// 音效界面
+    /// </summary>
+    public const int VOICE_PANEL_ACTIVE = 10;
+    /// <summary>
+    /// 安全界面
+    /// </summary>
+    public const int SECURITY_PANEL_ACTIVE = 11;
+
     /// <summary>
     /// 提示界面
     /// </summary>
     public const int HINT_ACTIVE = int.MaxValue;
+
 }

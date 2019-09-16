@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class SetPanel: UIBase
 {
-    Button btnMusic;
+    Button btnPanelMusic;
     Button btnHelp;
     Button btnChangePW;
     Button btnChangeExPW;
     Button btnExit;
     Button btnClose;
+    bool isVoice=true;
     private void Awake()
     {
         Bind(UIEvent.SET_PANEL_ACTIVE);
@@ -21,7 +22,7 @@ public class SetPanel: UIBase
         switch (eventCode)
         {
             case UIEvent.SET_PANEL_ACTIVE:
-                setPanelActive(true);
+                setPanelActive((bool)message);
                 break;
             default:
                 break;
@@ -30,24 +31,23 @@ public class SetPanel: UIBase
 
     private void Start()
     {
-        setPanelActive(false);
-        btnMusic = transform.Find("BtnMusic").GetComponent<Button>();
+        btnPanelMusic = transform.Find("BtnPanelMusic").GetComponent<Button>();
         btnHelp  = transform.Find("BtnHelp").GetComponent<Button>();
         btnChangeExPW = transform.Find("BtnChangeExPW").GetComponent<Button>();
         btnChangePW = transform.Find("BtnChangePW").GetComponent<Button>();
         btnExit = transform.Find("BtnExit").GetComponent<Button>();
         btnClose = transform.Find("BtnClose").GetComponent<Button>();
+
         btnClose.onClick.AddListener(clickClose);
-        btnMusic.onClick.AddListener(clickMusic);
+        btnPanelMusic.onClick.AddListener(clickMusic);
         btnExit.onClick.AddListener(clickExit);
+
         setPanelActive(false);
     }
-
+   
     private void clickMusic()
     {
-        PlayerPrefs.SetString("gamevoice","true");
-
-        //Dispatch(AreaCode.NET,EventType.set,)
+        Dispatch(AreaCode.UI, UIEvent.VOICE_PANEL_ACTIVE, true);
     }
     private void clickExit()
     {
@@ -56,6 +56,7 @@ public class SetPanel: UIBase
     }
     private void clickClose()
     {
+        Dispatch(AreaCode.UI, UIEvent.VOICE_PANEL_ACTIVE, false);
         setPanelActive(false);
     }
     public override void OnDestroy()
