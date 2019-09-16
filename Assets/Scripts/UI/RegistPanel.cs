@@ -47,7 +47,7 @@ public class RegistPanel : UIBase
         inputIdentify = transform.Find("InputIdentify").GetComponent<InputField>(); 
         inputPassWord = transform.Find("InputPassWord").GetComponent<InputField>();
         inputNickName = transform.Find("InputNickName").GetComponent<InputField>();
-        inputIdentify = transform.Find("InputIdentify").GetComponent<InputField>();
+        inputInviteCode = transform.Find("InputInviteCode").GetComponent<InputField>();
 
         btnIdentify.onClick.AddListener(clickIdentify);
         btnRegist.onClick.AddListener(clickRegist);
@@ -71,7 +71,7 @@ public class RegistPanel : UIBase
     {
         phone=inputUserName.text;
         passWord = inputPassWord.text;
-        inviteCode = inputPassWord.text;
+        inviteCode = inputInviteCode.text;
         nickName = inputNickName.text;
         identify = inputIdentify.text;
         UserInfo userinfo = new UserInfo(phone,passWord,identify,inviteCode,nickName);

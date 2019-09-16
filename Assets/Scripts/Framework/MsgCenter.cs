@@ -18,7 +18,7 @@ public class MsgCenter : MonoBase
     {
         Instance = this;
 
-        //gameObject.AddComponent<AudioManager>();
+        gameObject.AddComponent<AudioManager>();
         gameObject.AddComponent<UIManager>();
         gameObject.AddComponent<WebSocketManager>();
         //gameObject.AddComponent<CharacterManager>();
@@ -41,7 +41,7 @@ public class MsgCenter : MonoBase
         switch (areaCode)
         {
             case AreaCode.AUDIO:
-                //AudioManager.Instance.Execute(eventCode, message);
+                AudioManager.Instance.Execute(eventCode, message);
                 break;
 
             case AreaCode.CHARACTER:
